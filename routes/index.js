@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res) {
-    res.render('index', {title: 'All Flights'})
-})
+    res.redirect('/flights');
+});
+
+// export
 module.exports = router;
