@@ -3,7 +3,7 @@ const Flight = require('../models/flight')
 // NEW
 function newFlight(req, res) {
     console.log('the new route is hit')
-    res.render('flights/new', { errorMsg: ''})
+    res.render('flights/new', { title: 'Add Flight', errorMsg: ''})
 }
 // CREATE
 function create(req, res) {
@@ -27,7 +27,7 @@ function index(req, res) {
     Flight.find({})
     .then(flightDocs => {
         console.log('show all these flights\n', flightDocs)
-        res.render('flights/index', { flights: flightDocs})
+        res.render('flights/index', { flights: flightDocs, title: 'All Flights'})
     })
     .catch(err => {
         console.log('===err===')
@@ -37,6 +37,11 @@ function index(req, res) {
     })
 }
 // SHOW
+async function show(req, res) {
+    // console.log('shpw page req', req.params.id)
+    const flight = await Flight.findById(req.params.id)
+    res.render('flights/show', {title: 'Flight Details', flight})
+}
 // EDIT
 // UPDATE
 // DELETE
@@ -46,5 +51,6 @@ function index(req, res) {
 module.exports = {
     new: newFlight,
     create,
-    index
+    index,
+    show
 }

@@ -1,6 +1,31 @@
 <%- include('../partials/header') %>
+    <section>
+        <div><strong>Airline: </strong></div>
+        <div><%= flight.airline %></div>
+        <div><strong>Airport: </strong></div>
+        <div><%= flight.airport %></div>
+        <div><strong>Flight Number: </strong></div>
+        <div><%= flight.flightNo %></div>
+        <div><strong>Departure Time/Date: </strong></div>
+        <div><%= flight.departs %></div>
+    </section>
 
-<h2>Flight DETAILS</h2>
+    <h4>Add Destination</h4>
+        <form action="flights/<%= flight.id %>/reviews" method="POST">
+            <label>Arrival Airport:
+                <select name="airport">
+                    <option value="AUS">AUS</option>
+                    <option value="DFW">DFW</option>
+                    <option value="DEN">DEN</option>
+                    <option value="LAX">LAX</option>
+                    <option value="SAN">SAN</option>
+                </select>
+            </label><br>
+            <label>Arrival Date/Time: 
+                <input type="datetime-local" name="arrival">
+            </label>
+            <button type="submit">Add</button>
+        </form>
 
 
 <%- include('../partials/footer') %>

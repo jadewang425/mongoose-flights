@@ -29,7 +29,7 @@ const flightSchema = new Schema({
     // formatted with time as well
     departs: {
         type: Date,
-        // default: this.createdAt + 365 * 24 * 60 * 60 * 1000
+        default: () => new Date().setFullYear(new Date().getFullYear() + 1)
     },
     destinations: [destinationSchema]
 }, {
