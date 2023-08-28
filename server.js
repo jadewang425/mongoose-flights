@@ -9,6 +9,8 @@ const logger = require('morgan');
 // require routes
 const indexRouter = require('./routes/index');
 const flightsRouter = require('./routes/flights');
+const arrivalsRouter = require('./routes/arrivals')
+const ticketsRouter = require('./routes/tickets');
 
 const app = express()
 
@@ -26,7 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // register routes
 app.use('/', indexRouter);
-app.use('/flights', flightsRouter)
+app.use('/flights', flightsRouter);
+app.use('/', arrivalsRouter);
+app.use('/flights/:id/tickets', ticketsRouter);
 
 
 const PORT = process.env.PORT

@@ -2,7 +2,7 @@ const Flight = require('../models/flight')
 
 // NEW
 function newFlight(req, res) {
-    console.log('the new route is hit')
+    // console.log('the new route is hit')
     res.render('flights/new', { title: 'Add Flight', errorMsg: ''})
 }
 // CREATE
@@ -40,6 +40,7 @@ function index(req, res) {
 async function show(req, res) {
     // console.log('shpw page req', req.params.id)
     const flight = await Flight.findById(req.params.id)
+    // console.log('this is the flight in show', flight)
     res.render('flights/show', {title: 'Flight Details', flight})
 }
 // EDIT

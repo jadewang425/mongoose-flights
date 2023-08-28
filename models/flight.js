@@ -2,12 +2,16 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
+
+
 const destinationSchema = new Schema({
-    airport: {
-        tyoe: String,
+    aAirport: {
+        type: String,
         enum: ['AUS', 'DFW', 'DEN', 'LAX', 'SAN']
     },
     arrival: Date
+}, {
+    timestamps: true
 })
 
 const flightSchema = new Schema({
@@ -29,9 +33,13 @@ const flightSchema = new Schema({
     // formatted with time as well
     departs: {
         type: Date,
-        default: () => new Date().setFullYear(new Date().getFullYear() + 1)
+        default: () => new Date().setFullYear(Date().getFullYear() + 1)
     },
-    destinations: [destinationSchema]
+    destinations: [destinationSchema],
+    tickets: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Ticket'
+    }]
 }, {
     timestamps: true
 })
