@@ -4,28 +4,33 @@ const Ticket = require('../models/ticket');
 // New
 function newTicket(req, res) {
     console.log('the new ticket route is hit')
-    res.render('tickets/new', { title: 'Add Ticket' })
+    // console.log('the new ticket req.params.flightId', req.params.flightId)
+    Flight.findById(req.params.flightId)
+    .then(flight => {
+        res.render('tickets/new', { title: 'Add A Ticket', flight })
+
+    })
+    .catch(error => console.error)
 }
 
-// I don't know why req.params is undefined...
+// hitting this function but id undefine...
 function create(req, res) {
     console.log('the ticket create route is hit')
-    console.log('this is req.params', req.params.id)
-    // Flight.findById(req.params.id)
-    //     .then(flightDoc => {
-    //         flightDoc.tickets.push(req.body)
-    //         return flightDoc.save()
-    //     })
-    //     .then(flight => {
-    //         res.redirect(`/flights/${flight._id}`)
-    //     })
-    //     .catch(err => {
-    //         console.log('===err===')
-    //         console.log(err)
-    //         console.log('===err===')
-    //         // only in production for developer for now
-    //         return res.send('err creating - check terminal')
-    //     })
+    // console.log('this is req.params', req.params.flightId)
+    Flight.findById(req.params.flightId)
+        .then(flight => {
+            console.log(flight)
+            req.body.flight = flight.id
+            Ticket.create(req.body)
+            .then(ticket => {
+                flight.tickets.push(ticket)
+                return flight.save()
+            })
+            .then(ticket => {
+                res.redirect(`/flights/${flight._id}`)
+            })
+        })
+        .catch(error => console.error)
 
 }
 

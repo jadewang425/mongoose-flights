@@ -7,41 +7,34 @@ function newFlight(req, res) {
 }
 // CREATE
 function create(req, res) {
-    console.log('this is the create function')
+    // console.log('this is the flight create function')
     Flight.create(req.body)
         .then(flightDoc => {
             console.log(flightDoc)
             res.redirect('/flights')
         })
-        .catch(err => {
-            console.log('===err===')
-            console.log(err)
-            console.log('===err===')
-            // only in production for developer for now
-            res.redirect('/flights')
-        })
+        .catch(error => console.error)
     res.send
 }
 // INDEX
 function index(req, res) {
-    Flight.find({})
+    Flight.find({}).sort('departs')
     .then(flightDocs => {
         console.log('show all these flights\n', flightDocs)
         res.render('flights/index', { flights: flightDocs, title: 'All Flights'})
     })
-    .catch(err => {
-        console.log('===err===')
-        console.log(err)
-        console.log('===err===')
-        return res.send('err creating - check terminal')
-    })
+    .catch(error => console.error)
 }
 // SHOW
 async function show(req, res) {
     // console.log('shpw page req', req.params.id)
-    const flight = await Flight.findById(req.params.id)
-    // console.log('this is the flight in show', flight)
-    res.render('flights/show', {title: 'Flight Details', flight})
+    Flight.findById(req.params.id)
+        .populate('tickets')
+        .then(flight => {
+            console.log('this is the flight in show', flight.tickets[0])
+            res.render('flights/show', {title: 'Flight Details', flight})
+
+        })
 }
 // EDIT
 // UPDATE

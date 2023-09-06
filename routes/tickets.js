@@ -3,11 +3,11 @@ const router = express.Router();
 
 const ticketsCtrl = require('../controllers/ticketsControl');
 
-// all paths start with "/flights"
-// NEW 'flights/:id/tickets'
-router.get('/new', ticketsCtrl.new)
+// all paths start with "/tickets"
+// NEW 
+router.get('/new/:flightId', ticketsCtrl.new)
 // CREATE
-router.post('/', ticketsCtrl.create);
+router.post('/:flightId', ticketsCtrl.create);
 
 
 module.exports = router;

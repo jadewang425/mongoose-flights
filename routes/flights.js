@@ -11,7 +11,7 @@ router.post('/', flightsCtrl.create);
 // INDEX
 router.get('/', flightsCtrl.index);
 // SHOW
-router.get('/:id', flightsCtrl.show);
+router.get(`/:id`, flightsCtrl.show);
 // EDIT
 // UPDATE
 // DELETE

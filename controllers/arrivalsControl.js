@@ -3,8 +3,8 @@ const Flight = require('../models/flight')
 // create
 function create(req, res) {
     // find the flight
-    console.log('create arrival for Flight', Flight)
-    console.log('this is create function in arrivalsControl', req.params)
+    // console.log('create arrival for Flight', Flight)
+    // console.log('this is create function in arrivalsControl', req.params)
     Flight.findById(req.params.id)
         .then(flightDoc => {
             // push the arrival info
@@ -15,12 +15,7 @@ function create(req, res) {
          .then(flight => {
             res.redirect(`/flights/${flight._id}`)
          })
-         .catch(err => {
-            console.log('===err===')
-            console.log(err)
-            console.log('===err===')
-            return res.send('err creating - check terminal')
-        })
+         .catch(error => console.error)
 }
 
 module.exports = {
